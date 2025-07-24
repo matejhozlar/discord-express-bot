@@ -1,0 +1,13 @@
+const REQUIRED_VARS = [
+  "DB_DATABASE",
+  "DB_HOST",
+  "DB_PASSWORD",
+  "DB_PORT",
+  "DB_USER",
+  "DISCORD_BOT_TOKEN",
+  "DISCORD_CLIENT_ID",
+  "DISCORD_GUILD_ID",
+  "PORT",
+];
+
+export default REQUIRED_VARS;
