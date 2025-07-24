@@ -1,20 +1,32 @@
 import fs from "fs";
 import path from "path";
 import glob from "fast-glob";
-import logger from "../config/logger.js";
 
 const SOURCE_DIR = path.resolve(".");
 
+/**
+ * Extract all env variables usages from a file.
+ */
 function findEnvVarsInFile(filePath) {
   const content = fs.readFileSync(filePath, "utf-8");
   const matches = content.matchAll(/process\.env\.([A-Z0-9_]+)/g);
   return Array.from(matches, (m) => m[1]);
 }
 
-export function generateRequiredEnvVars(outputPath) {
+/**
+ * Generates a .env.example file based on all env var references.
+ */
+export function generateEnvExampleFile(outputPath = ".env.example") {
   const allFiles = glob.sync(["**/*.js"], {
     cwd: SOURCE_DIR,
-    ignore: ["node_modules/**", "client/**", "build/**", "dist/**"],
+    ignore: [
+      "node_modules/**",
+      "build/**",
+      "dist/**",
+      "client/**",
+      "template/**",
+      "**/.next/**",
+    ],
     absolute: true,
   });
 
@@ -25,17 +37,14 @@ export function generateRequiredEnvVars(outputPath) {
       const vars = findEnvVarsInFile(file);
       vars.forEach((v) => envVars.add(v));
     } catch (err) {
-      logger.warn(`Skipping unreadable file ${file}: ${err.message}`);
+      console.warn(`Skipping file ${file}: ${err.message}`);
     }
   }
 
   const sortedVars = Array.from(envVars).sort();
+  const envContent = sortedVars.map((v) => `${v}=`).join("\n") + "\n";
 
-  const jsContent = `const REQUIRED_VARS = [\n${sortedVars
-    .map((v) => `  "${v}",`)
-    .join("\n")}\n];\n\nexport default REQUIRED_VARS;\n`;
+  fs.writeFileSync(outputPath, envContent);
 
-  fs.writeFileSync(outputPath, jsContent);
-  logger.info(`Wrote ${sortedVars.length} required env vars to ${outputPath}`);
-  process.exit(1);
+  console.log(`✅ Wrote ${sortedVars.length} env vars to ${outputPath}`);
 }

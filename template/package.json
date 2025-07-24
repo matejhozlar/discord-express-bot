@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server.js",
     "start": "node server.js",
-    "gen:env-vars": "node scripts/generate.js"
+    "gen:env-vars": "node scripts/generateRequiredEnv.js",
+    "gen:env-example": "node scripts/generateExampleEnv.js"
   },
   "keywords": [],
   "author": "",

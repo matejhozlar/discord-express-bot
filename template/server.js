@@ -67,7 +67,7 @@ await initDiscordBot(db, io);
  * Start HTTP + WebSocket server
  */
 httpServer.listen(PORT, () => {
-  logger.info(`🚀 Server running at http://localhost:${PORT}`);
+  logger.info(`Server running at http://localhost:${PORT}`);
 });
 
 /**
@@ -79,7 +79,7 @@ process.on("SIGINT", async () => {
   try {
     // Remove or modify this depending on your DB type
     if (db?.end) await db.end(); // PostgreSQL or MySQL
-    if (mongoose?.connection) await mongoose.connection.close(); // MongoDB
+    //if (mongoose?.connection) await mongoose.connection.close(); // MongoDB
     // No close needed for SQLite (memory or file-based)
 
     io.close(); // Close WebSocket server

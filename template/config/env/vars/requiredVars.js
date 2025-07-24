@@ -3,6 +3,7 @@ const REQUIRED_VARS = [
   "DB_HOST",
   "DB_PASSWORD",
   "DB_PORT",
+  "DB_URI",
   "DB_USER",
   "DISCORD_BOT_TOKEN",
   "DISCORD_CLIENT_ID",
