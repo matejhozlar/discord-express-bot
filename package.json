@@ -1,6 +1,6 @@
 {
   "name": "create-discord-express-bot",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Scaffold a Discord + Express bot template.",
   "bin": {
     "create-discord-express-bot": "cli.js"

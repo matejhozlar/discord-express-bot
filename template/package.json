@@ -1,6 +1,6 @@
 {
   "name": "discord-express-bot-template",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A production-ready template for a Discord bot with an Express web server.",
   "main": "src/index.js",
   "type": "module",
